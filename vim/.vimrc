@@ -4,6 +4,14 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'         " fancy statusline
 Plug 'vim-airline/vim-airline-themes'  " themes for airline
 Plug 'ctrlpvim/ctrlp.vim'              " add ctlp plugin for searching
+Plug 'airblade/vim-gitgutter'          " Shows a git diff in the gutter (sign column) and stages/undoes hunks.
+Plug 'tpope/vim-commentary'            " easy commenting
+Plug 'raimondi/delimitmate'            " Auto close tags
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " visual file explorer
+Plug 'Xuyuanp/nerdtree-git-plugin'                                          " git changes for nerdtree
+Plug 'ryanoasis/vim-devicons'                                               " file icons for nerdtree
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                              " syntax highlighting for nerdtree
+
 " Initialize plugin system
 call plug#end()
 
@@ -16,6 +24,7 @@ set t_Co=256              " explicitly tell vim that the terminal supports 256 c
 set ttyfast               " faster redrawing
 set iskeyword+=-          " include - in keyword matching
 
+" Leader Shortcuts
 " set a map leader for more key combos
 let mapleader = ','
 " shortcut to save
@@ -24,12 +33,34 @@ nmap <leader>, :w<cr>
 nmap <leader>f :CtrlP<cr>
 " open v split
 nmap <leader>v :vsp<cr>
- " open h split
+" open h split
 nmap <leader>h :sp<cr>
+" reindent entire file
+" mark cursor and put cursor back, center cursor in window
+nnoremap <leader>r magg=G`az.
+" Display current file in the NERDTree ont the left
+nmap <silent> <leader>n :NERDTreeFind<CR><c-w>=
 
 " CtrlP - searching in your current directory only
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR><c-w>=
+let NERDTreeShowHidden=1
+let NERDTreeDirArrowExpandable = '▷'
+let NERDTreeDirArrowCollapsible = '▼'
+" Disable bookmarks label, and hint about '?'
+let NERDTreeMinimalUI=1
+" colorize full name in addition to icon
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeIgnore = ['\.DS_Store$','node_modules','\.swp$','\.swo$','\~$']
+
+" DelimitMate
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 
 " Searching
  set ignorecase   " ignore case in search patterns
