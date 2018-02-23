@@ -31,6 +31,12 @@ nmap <leader>h :sp<cr>
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
+" Searching
+ set ignorecase   " ignore case in search patterns
+ set smartcase    " poverride the 'ignorecase' option if the search pattern contains upper case characters
+ set incsearch    " search as characters are entered
+ set hlsearch     " highlight matches
+
 " Spaces & Tabs
 set tabstop=4             " number of visual spaces per TAB
 set shiftwidth=2          " number of spaces to use for indent and unindent
@@ -67,3 +73,4 @@ endif
 
 " Airline
 let g:airline_theme='gruvbox'
+
