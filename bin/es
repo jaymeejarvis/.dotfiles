@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Quick shortcut to an editor.
+#
+# This means that as I travel back and forth between editors, hey, I don't have
+# to re-learn any arcane commands. Neat.
+#
+# USAGE:
+#
+#   $ e
+#   # => opens the current directory in your editor
+#
+#   $ e .
+#   $ e /usr/local
+#   # => opens the specified directory in your editor
+# exec "$EDITOR" -a "${1:-.}"
+
+if command -v figlet >/dev/null 2>&1; then
+figlet Editor Session
+fi
+
+if [ ! -f ./Session.vim ]; then
+
+  echo "no session found"
+  exec "$EDITOR" "${1:-.}"
+
+else
+
+  echo "loading session"
+  exec "$EDITOR" "-S"
+
+fi

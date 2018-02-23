@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#EG - editor gulp - open editor, create iterm layout, start gulp
+if command -v figlet >/dev/null 2>&1; then
+figlet EG
+fi
+
+# create new tab and split it
+IFS='%'
+osascript -e '
+tell application "iTerm2"
+try
+
+  tell current session of current window
+    tell application "System Events" to keystroke "D" using command down
+    tell application "System Events" to keystroke "d" using command down
+    tell application "System Events" to key code 30 using {command down}
+
+    repeat 25 times
+      tell application "System Events" to key code 125 using {command down, control down}
+    end repeat
+
+    set name to "NVIM:"
+    write text "es"
+
+    delay 2
+    tell application "System Events" to key code 30 using {command down}
+
+    set name to "GULP:"
+    write text "s"
+
+    delay 2
+    tell application "System Events" to key code 30 using {command down}
+
+    set name to "GIT:"
+    write text "clr && git st"
+  end tell
+
+  end try
+end tell
+'

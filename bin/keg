@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#KEG - kill editor gulp - stop vim and close window, stop gulp and close window, you are left with one pane
+if command -v figlet >/dev/null 2>&1; then
+figlet KEG
+fi
+
+IFS='%'
+osascript -e '
+tell application "iTerm2"
+try
+
+  tell current session of current window
+
+    --command ] to rotate active pane
+    tell application "System Events" to key code 30 using {command down}
+
+    --quit vim
+    tell application "System Events" to key code 53
+    tell application "System Events" to key code 41 using {shift down}
+    tell application "System Events" to key code 12
+    tell application "System Events" to key code 0
+    tell application "System Events" to key code 76
+
+    delay 1
+    --command w to close pane
+    tell application "System Events" to key code 13 using {command down}
+
+    --control c then command w
+    tell application "System Events" to key code 8 using {control down}
+    delay 1
+    tell application "System Events" to key code 13 using {command down}
+
+  end tell
+
+  end try
+end tell
+'

@@ -1,0 +1,2 @@
+# open chrome in kiosk mode with url, or youtube by default
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --kiosk --app=${1:-https://www.youtube.com}

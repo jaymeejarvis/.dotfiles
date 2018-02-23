@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if command -v figlet >/dev/null 2>&1; then
+figlet STARTER
+fi
+
+[ -f "$PWD"/**/*.scss ] && sass=true  || sass=false
+[ -f "$PWD"/gulpfile.js ] && gulp=true  || gulp=false
+
+if [ $gulp == true ]; then
+  echo -e "\033[92m==> gulp found \033[39m"
+  if [ -d "$PWD/node_modules/gulp" ]; then
+    echo -e "\033[92m==> success - starting gulp \033[39m"
+    ## start default gulp task
+    gulp
+  else
+    echo -e "\033[0;31m==> failed - gulp not installed \033[39m"
+    echo -e "\033[92m==> running gup... \033[39m"
+    ## run gup functions
+    gup
+  fi
+elif [ $sass == true ]; then
+  echo -e "\033[92m==> codekit found \033[39m"
+  ## open codekit with current directory
+  open -a /Applications/CodeKit.app/ .
+fi

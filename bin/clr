@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Clear screen
+# if in .git directory, show branches
+# always show jobs if there are any
+if git rev-parse --is-inside-work-tree; then
+  clear
+  echo "branches:"
+  git br
+  if [[ $(jobs) ]]; then
+    echo "jobs:"
+    jobs
+  fi
+else
+  clear
+  if [[ $(jobs) ]]; then
+    echo "jobs:"
+    jobs
+  fi
+fi;

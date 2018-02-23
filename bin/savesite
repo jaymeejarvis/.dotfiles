@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# FOR COLOR CUSTOMIZATIONS
+# save the active Chrome window source to file
+# usage
+# savesite filename.html
+
+if command -v figlet >/dev/null 2>&1; then
+figlet Savesite
+fi
+
+IFS='%'
+appName="Google Chrome"
+
+URL=$(/usr/bin/osascript << EOT
+tell application "System Events"
+  try
+    tell application "Google Chrome"
+      return URL of active tab of front window
+    end tell
+  end try
+end tell
+EOT)
+
+FILENAME=${1:-"live.html"}
+
+if [ -f $FILENAME ]; then
+  echo "==> file $FILENAME already exists..."
+  echo "==> deleting original file"
+  rm $FILENAME
+fi
+
+echo ""
+echo "==> saving ${URL} as ${FILENAME}"
+echo ""
+
+curl $URL > $FILENAME
+
+sed -i '' '/<\/head>/i\
+<link rel="stylesheet" href="css/stylesheet.css">\
+' $FILENAME

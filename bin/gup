@@ -1,0 +1,15 @@
+#!/bin/bash
+# gulp - install gulp and install/update npm
+
+if command -v figlet >/dev/null 2>&1; then
+figlet -f slant GUP
+fi
+
+echo -e "\033[92m==> installing gulp\033[39m"
+npm install gulp --no-progress --quite --silent;
+echo -e "\033[92m==> npm install\033[39m"
+npm install
+echo -e "\033[92m==> updating npm\033[39m"
+npm update --no-progress --quite;
+echo -e "\033[92m==> starting gulp\033[39m"
+gulp

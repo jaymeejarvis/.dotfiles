@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# FOR THEMES
+# save the active Chrome window source to file
+# usage
+# savetheme filename.html
+
+if command -v figlet >/dev/null 2>&1; then
+figlet Savetheme
+fi
+
+IFS='%'
+appName="Google Chrome"
+
+URL=$(/usr/bin/osascript << EOT
+tell application "System Events"
+  try
+    tell application "Google Chrome"
+      return URL of active tab of front window
+    end tell
+  end try
+end tell
+EOT)
+
+FILENAME=${1:-"live.html"}
+
+if [ -f $FILENAME ]; then
+  echo "==> file $FILENAME already exists..."
+  echo "==> deleting original file"
+  rm $FILENAME
+fi
+
+echo ""
+echo "==> saving ${URL} as ${FILENAME}"
+echo ""
+
+curl $URL > $FILENAME
+
+# add stylesheet for theme right before </head>
+sed -i '' '/<\/head>/i\
+<link rel="stylesheet" href="../css/stylesheet.css">\
+' $FILENAME
+
+# remove script * designs * .js in FILENAME
+sed -i '' '/script.*designs.*.js/d' $FILENAME
+
+# add theme js right before </body>
+sed -i '' '/<\/body>/i\
+<script src="js/site.min.js" type="text/javascript"></script>\
+' $FILENAME
