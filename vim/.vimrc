@@ -40,6 +40,8 @@ nmap <leader>h :sp<cr>
 nnoremap <leader>r magg=G`az.
 " Display current file in the NERDTree ont the left
 nmap <silent> <leader>n :NERDTreeFind<CR><c-w>=
+" super save - save session in its current state, open agian with `vim -S`
+nnoremap <leader>s :mksession!<CR>>
 
 " CtrlP - searching in your current directory only
 let g:ctrlp_working_path_mode = '0'
