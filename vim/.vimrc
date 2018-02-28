@@ -11,6 +11,29 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " vi
 Plug 'Xuyuanp/nerdtree-git-plugin'                                          " git changes for nerdtree
 Plug 'ryanoasis/vim-devicons'                                               " file icons for nerdtree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                              " syntax highlighting for nerdtree
+Plug 'brooth/far.vim'                  " find and replace with :Far foo bar **/*.scss -then- :Fardo
+" Syntax support
+Plug 'othree/html5.vim'                                       " html5 syntax
+Plug 'othree/javascript-libraries-syntax.vim'                 " javascript libary syntax (jquery)
+Plug 'pangloss/vim-javascript'                                " javascript syntax
+Plug 'cakebaker/scss-syntax.vim'                              " scss syntax
+Plug 'lumiliet/vim-twig'                                      " twig syntax
+Plug 'jtratner/vim-flavored-markdown'                         " markdown syntax
+" Syntax Engines
+Plug 'w0rp/ale'
+" Auto Complete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  } " Autocompletion engine
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'mattn/emmet-vim'                                        " html / templates
+Plug 'ervandew/supertab'                                      " Perform all your vim insert mode completions with Tab
+" Snippets
+Plug 'sirver/ultisnips'                                       " snippet engine
+Plug 'honza/vim-snippets'                                     " collection of snippets
 
 " Initialize plugin system
 call plug#end()
@@ -24,6 +47,11 @@ set t_Co=256              " explicitly tell vim that the terminal supports 256 c
 set ttyfast               " faster redrawing
 set iskeyword+=-          " include - in keyword matching
 
+" Auto Commands
+" auto reload file when changed on disk
+set updatetime=750
+au CursorHold,FocusGained,BufEnter * checktime
+
 " Leader Shortcuts
 " set a map leader for more key combos
 let mapleader = ','
@@ -35,6 +63,9 @@ nmap <leader>f :CtrlP<cr>
 nmap <leader>v :vsp<cr>
 " open h split
 nmap <leader>h :sp<cr>
+" open current dir in finder
+nmap <leader>o :!open .<cr>>
+
 " reindent entire file
 " mark cursor and put cursor back, center cursor in window
 nnoremap <leader>r magg=G`az.
@@ -42,6 +73,31 @@ nnoremap <leader>r magg=G`az.
 nmap <silent> <leader>n :NERDTreeFind<CR><c-w>=
 " super save - save session in its current state, open agian with `vim -S`
 nnoremap <leader>s :mksession!<CR>>
+
+" leader w, for pane control
+nnoremap <leader>w <C-w>
+" focus splits with ctrl + direction
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+" make deoplete with with ultisnips
+call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+
+" UltiSnips  
+" set default shortcut
+let g:UltiSnipsExpandTrigger='<tab>'
+
+" load custom snippets location
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsEditSplit='vertical'
+
+" SuperTab  
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " CtrlP - searching in your current directory only
 let g:ctrlp_working_path_mode = '0'
@@ -61,14 +117,16 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeIgnore = ['\.DS_Store$','node_modules','\.swp$','\.swo$','\~$']
 
 " DelimitMate
+if has('nvim')
 let delimitMate_expand_cr = 1
+endif
 let delimitMate_expand_space = 1
 
 " Searching
- set ignorecase   " ignore case in search patterns
- set smartcase    " poverride the 'ignorecase' option if the search pattern contains upper case characters
- set incsearch    " search as characters are entered
- set hlsearch     " highlight matches
+set ignorecase   " ignore case in search patterns
+set smartcase    " poverride the 'ignorecase' option if the search pattern contains upper case characters
+set incsearch    " search as characters are entered
+set hlsearch     " highlight matches
 
 " Spaces & Tabs
 set tabstop=4             " number of visual spaces per TAB
@@ -101,7 +159,7 @@ set background=dark
 colorscheme gruvbox
 
 if has('termguicolors')
-    set termguicolors " 24-bit terminal
+  set termguicolors " 24-bit terminal
 endif
 
 " Airline
