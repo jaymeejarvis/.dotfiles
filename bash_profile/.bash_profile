@@ -8,7 +8,7 @@ export PATH="$GOPATH/bin:$PATH"
 export DOTFILES=$HOME/Repos/.dotfiles
 export PATH="./bin:/usr/local/bin:/usr/local/sbin:$DOTFILES/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
-export EDITOR='vim'
+export EDITOR='nvim'
 
 PS1='\e[0;33m[\w$(__git_ps1 " (%s)")]\$ \e[m'
 

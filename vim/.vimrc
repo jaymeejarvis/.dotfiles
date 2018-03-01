@@ -154,6 +154,8 @@ set fillchars=vert:│          " set vert split character to taller line
 set autoindent            " automatically set indent of new line
 set smartindent           " do smart autoindenting when starting a new line
 set autoread              " auto reload changed files
+set wildmenu                  " visual autocomplete for command menu
+set wildcharm=<TAB>           " auto completetion hotkey
 
 " colorscheme
 set background=dark
