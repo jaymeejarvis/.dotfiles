@@ -46,6 +46,7 @@ set encoding=utf8         " set encoding
 set t_Co=256              " explicitly tell vim that the terminal supports 256 colors
 set ttyfast               " faster redrawing
 set iskeyword+=-          " include - in keyword matching
+set backspace=indent,eol,start "  backspace over everything in insert mode
 
 " Auto Commands
 " auto reload file when changed on disk
@@ -65,6 +66,8 @@ nmap <leader>v :vsp<cr>
 nmap <leader>h :sp<cr>
 " open current dir in finder
 nmap <leader>o :!open .<cr>>
+" remap emmet expand
+imap hh <C-y>,
 
 " reindent entire file
 " mark cursor and put cursor back, center cursor in window
